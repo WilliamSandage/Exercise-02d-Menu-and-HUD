@@ -16,22 +16,27 @@ func _resize():
 	VP = get_viewport().size
 	
 func reset():
+	get_tree().paused = false
 	score = 0
 	time = 100
 	lives = 5
 
 func update_score(s):
 	score += s
-	var hud = get_node_or_null("root/Game/UI/HUD")
+	var hud = get_node_or_null("/root/Game/UI/HUD")
 	if hud != null:
 		hud.update_score()
 func update_time(t):
 	time += t
-	var hud = get_node_or_null("root/Game/UI/HUD")
+	if time <= 0:
+		var _scene = get_tree().change_scene("res://UI/End_Game.tscn")
+	var hud = get_node_or_null("/root/Game/UI/HUD")
 	if hud != null:
 		hud.update_time()
 func update_lives(l):
 	lives += l
-	var hud = get_node_or_null("root/Game/UI/HUD")
+	if lives <= 0:
+		var _scene = get_tree().change_scene("res://UI/End_Game.tscn")
+	var hud = get_node_or_null("/root/Game/UI/HUD")
 	if hud != null:
 		hud.update_lives()
